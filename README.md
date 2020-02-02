@@ -12,3 +12,5 @@ Deploy an AWS VPC with 3 Availability Zones (Public &amp; Private Subnets) using
 [~] terraform plan
 [~] terraform apply
 ```
+
+NOTE: AWS credentials are pulled from `"~/.aws/credentials"`.
