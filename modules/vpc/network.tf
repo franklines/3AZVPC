@@ -1,13 +1,12 @@
 provider "aws" {
   region = "${var.aws_region}"
-  shared_credentials_file = "~/.aws/credentials"
 }
 
 resource "aws_vpc" "tfVPC" {
   cidr_block = "${var.vpc_cidr}"
 
   tags = {
-    Name = "tfVPC"
+    Name = "${var.vpc_name}"
     Description = "Provisioned via Terraform"
   }
 }
@@ -68,7 +67,7 @@ resource "aws_route_table" "tfRPriv" {
   vpc_id = "${aws_vpc.tfVPC.id}"
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = "${var.external_traffic}"
     nat_gateway_id = "${element(aws_nat_gateway.tfNAT.*.id, count.index)}"
   }
 
@@ -87,7 +86,7 @@ resource "aws_default_route_table" "tfUpdate" {
   default_route_table_id = "${aws_vpc.tfVPC.default_route_table_id}"
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = "${var.external_traffic}"
     gateway_id = "${aws_internet_gateway.tfIGW.id}"
   }
 

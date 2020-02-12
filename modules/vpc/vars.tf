@@ -2,8 +2,16 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
+variable "vpc_name" {
+  default = "tfVPC"
+}
+
 variable "vpc_cidr" {
   default = "10.1.0.0/16"
+}
+
+variable "external_traffic" {
+  default = "0.0.0.0/0"
 }
 
 variable "public_subnets" {
